@@ -31,6 +31,13 @@ const sampleData: FormatedDataChildItemType = {
           type: "file",
           childs: [],
         },
+        {
+            id: 5,
+            parentId: 3,
+            title: "B2.css",
+            type: "file",
+            childs: [],
+          },
       ],
     },
   ],

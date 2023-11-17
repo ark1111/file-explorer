@@ -14,10 +14,13 @@ export const ParentBox = styled.div`
 export const ParentBoxArrowBox = styled.div`
   width: 20px;
   height: 20px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+export const ParentBoxArrowicon = styled.img`
+  height: 10px;
 `;
 
 export const ParentBoxMain = styled.div`
@@ -30,10 +33,10 @@ export const ParentBoxMain = styled.div`
   cursor: pointer;
 `;
 
-export const ParentBoxMainIcon = styled.div`
+export const ParentBoxMainIcon = styled.img`
   height: 20px;
   width: 20px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const ParentBoxMainTitle = styled.div`
