@@ -1,8 +1,40 @@
 import { useState } from "react";
 import { Box } from "./FilesExplorer.styled";
-import { DataItemType, FormatedDataType } from "../types";
+import { DataItemType, FormatedDataChildItemType } from "../types";
+import FilesListItem from "./FilesListItem";
 
 type Props = {};
+
+const sampleData: FormatedDataChildItemType = {
+  id: 1,
+  parentId: null,
+  title: "Root",
+  type: "folder",
+  childs: [
+    {
+      id: 2,
+      parentId: 1,
+      title: "A",
+      type: "folder",
+      childs: [],
+    },
+    {
+      id: 3,
+      parentId: 1,
+      title: "B",
+      type: "folder",
+      childs: [
+        {
+          id: 4,
+          parentId: 3,
+          title: "B1.txt",
+          type: "file",
+          childs: [],
+        },
+      ],
+    },
+  ],
+};
 
 const FilesExplorer = (props: Props) => {
   const [data, setData] = useState<DataItemType[]>([
@@ -32,9 +64,13 @@ const FilesExplorer = (props: Props) => {
     },
   ]);
 
-  const [formatedData, setFormatedData] = useState<FormatedDataType>();
+  const [formatedData, setFormatedData] = useState<FormatedDataChildItemType>();
 
-  return <Box></Box>;
+  return (
+    <Box>
+      <FilesListItem info={sampleData} />
+    </Box>
+  );
 };
 
 export default FilesExplorer;
