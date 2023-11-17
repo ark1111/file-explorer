@@ -9,15 +9,17 @@ export const ParentBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  user-select: none;
 `;
 
-export const ParentBoxArrowBox = styled.div`
+export const ParentBoxArrowBox = styled.div<{ $isOpen: boolean }>`
   width: 20px;
   height: 20px;
   /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: ${(props) => (props.$isOpen ? "rotate(90deg)" : "rotate(0deg)")};
 `;
 export const ParentBoxArrowicon = styled.img`
   height: 10px;
@@ -44,6 +46,8 @@ export const ParentBoxMainTitle = styled.div`
   color: "#111";
 `;
 
-export const ChildsBox = styled.div`
+export const ChildsBox = styled.div<{ $isOpen: boolean }>`
   padding-left: 30px;
+  max-height: ${(props) => (props.$isOpen ? "1000px" : "0px")};
+  overflow-y: hidden;
 `;

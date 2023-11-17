@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   ChildsBox,
@@ -17,6 +17,14 @@ type Props = {
 };
 
 const FilesListItem = ({ info }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openAndCloseFileHandler = () => {
+    if (info.type === "folder") {
+      setIsOpen((oldState) => !oldState);
+    }
+  };
+
   const getIcon = () => {
     if (info.type === "folder") {
       return Icons["folder"];
@@ -34,19 +42,19 @@ const FilesListItem = ({ info }: Props) => {
     <Box>
       <ParentBox>
         {info.type === "folder" ? (
-          <ParentBoxArrowBox>
+          <ParentBoxArrowBox $isOpen={isOpen}>
             <ParentBoxArrowicon
               src="/icons/right-arrow.svg"
               alt="right-arrow-icon"
             />
           </ParentBoxArrowBox>
         ) : null}
-        <ParentBoxMain>
+        <ParentBoxMain onClick={openAndCloseFileHandler}>
           {getIcon() ? <ParentBoxMainIcon src={getIcon() || ""} /> : null}
           <ParentBoxMainTitle>{info.title}</ParentBoxMainTitle>
         </ParentBoxMain>
       </ParentBox>
-      <ChildsBox>
+      <ChildsBox $isOpen={isOpen}>
         {info.childs?.map((item) => (
           <FilesListItem key={item.id} info={item} />
         ))}
