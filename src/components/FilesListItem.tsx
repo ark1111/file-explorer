@@ -18,12 +18,14 @@ type Props = {
   info: FormatedDataChildItemType;
   activeActionsId: number | null;
   setActiveActionsId: React.Dispatch<React.SetStateAction<number | null>>;
+  deleteHandler: (id: number) => void;
 };
 
 const FilesListItem = ({
   info,
   activeActionsId,
   setActiveActionsId,
+  deleteHandler,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,9 +59,14 @@ const FilesListItem = ({
   const hideActionsHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    e.stopPropagation();
+      e.stopPropagation();
     setActiveActionsId(null);
   };
+
+  const deleteFunction=()=>{
+    deleteHandler(info.id);
+    setActiveActionsId(null);
+  }
 
   return (
     <Box>
@@ -81,8 +88,12 @@ const FilesListItem = ({
           {getIcon() ? <ParentBoxMainIcon src={getIcon() || ""} /> : null}
           <ParentBoxMainTitle>{info.title}</ParentBoxMainTitle>
         </ParentBoxMain>
-        {info.id === activeActionsId ? (
-          <Actions hideActionsHandler={hideActionsHandler} type={info.type} />
+        {info.id === activeActionsId && info.parentId !== null ? (
+          <Actions
+            hideActionsHandler={hideActionsHandler}
+            type={info.type}
+            deleteFunction={deleteFunction}
+          />
         ) : null}
       </ParentBox>
       <ChildsBox $isOpen={isOpen}>
@@ -92,6 +103,7 @@ const FilesListItem = ({
             info={item}
             activeActionsId={activeActionsId}
             setActiveActionsId={setActiveActionsId}
+            deleteHandler={deleteHandler}
           />
         ))}
       </ChildsBox>
