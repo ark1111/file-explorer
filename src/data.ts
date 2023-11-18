@@ -4,4 +4,6 @@ export const Icons: { [key: string]: string } = {
   css: "/icons/css.svg",
   js: "/icons/javascript.svg",
   html: "/icons/html.svg",
+  svg: "/icons/svg-file.svg",
+  png: "/icons/png-file.svg",
 };

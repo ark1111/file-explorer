@@ -4,6 +4,7 @@ import {
   ChildsBox,
   ParentBox,
   ParentBoxArrowBox,
+  ParentBoxArrowBoxEmpty,
   ParentBoxArrowicon,
   ParentBoxMain,
   ParentBoxMainIcon,
@@ -11,12 +12,19 @@ import {
 } from "./FilesListItem.styled";
 import { FormatedDataChildItemType } from "../types";
 import { Icons } from "../data";
+import Actions from "./Actions";
 
 type Props = {
   info: FormatedDataChildItemType;
+  activeActionsId: number | null;
+  setActiveActionsId: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-const FilesListItem = ({ info }: Props) => {
+const FilesListItem = ({
+  info,
+  activeActionsId,
+  setActiveActionsId,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openAndCloseFileHandler = () => {
@@ -38,6 +46,21 @@ const FilesListItem = ({ info }: Props) => {
       }
     }
   };
+
+  const showActionsHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setActiveActionsId(info.id);
+  };
+
+  const hideActionsHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    setActiveActionsId(null);
+  };
+
   return (
     <Box>
       <ParentBox>
@@ -48,15 +71,28 @@ const FilesListItem = ({ info }: Props) => {
               alt="right-arrow-icon"
             />
           </ParentBoxArrowBox>
-        ) : null}
-        <ParentBoxMain onClick={openAndCloseFileHandler}>
+        ) : (
+          <ParentBoxArrowBoxEmpty />
+        )}
+        <ParentBoxMain
+          onClick={openAndCloseFileHandler}
+          onContextMenu={(e) => showActionsHandler(e)}
+        >
           {getIcon() ? <ParentBoxMainIcon src={getIcon() || ""} /> : null}
           <ParentBoxMainTitle>{info.title}</ParentBoxMainTitle>
         </ParentBoxMain>
+        {info.id === activeActionsId ? (
+          <Actions hideActionsHandler={hideActionsHandler} type={info.type} />
+        ) : null}
       </ParentBox>
       <ChildsBox $isOpen={isOpen}>
         {info.childs?.map((item) => (
-          <FilesListItem key={item.id} info={item} />
+          <FilesListItem
+            key={item.id}
+            info={item}
+            activeActionsId={activeActionsId}
+            setActiveActionsId={setActiveActionsId}
+          />
         ))}
       </ChildsBox>
     </Box>

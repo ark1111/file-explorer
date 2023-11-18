@@ -21,6 +21,11 @@ export const ParentBoxArrowBox = styled.div<{ $isOpen: boolean }>`
   justify-content: center;
   transform: ${(props) => (props.$isOpen ? "rotate(90deg)" : "rotate(0deg)")};
 `;
+
+export const ParentBoxArrowBoxEmpty = styled.div`
+  width: 20px;
+  height: 20px;
+`;
 export const ParentBoxArrowicon = styled.img`
   height: 10px;
 `;
