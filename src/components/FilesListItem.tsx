@@ -13,6 +13,7 @@ import {
 import { FormatedDataChildItemType } from "../types";
 import { Icons } from "../data";
 import Actions from "./Actions";
+import AddItem from "./AddItem";
 
 type Props = {
   info: FormatedDataChildItemType;
@@ -28,10 +29,16 @@ const FilesListItem = ({
   deleteHandler,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showAddItem, setShowAddItem] = useState<"file" | "folder" | null>(
+    null
+  );
 
   const openAndCloseFileHandler = () => {
     if (info.type === "folder") {
       setIsOpen((oldState) => !oldState);
+      if (isOpen) {
+        setShowAddItem(null);
+      }
     }
   };
 
@@ -59,14 +66,24 @@ const FilesListItem = ({
   const hideActionsHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-      e.stopPropagation();
+    e.stopPropagation();
     setActiveActionsId(null);
   };
 
-  const deleteFunction=()=>{
+  const deleteFunction = () => {
     deleteHandler(info.id);
     setActiveActionsId(null);
-  }
+  };
+
+  const addItemHandler = (type: "file" | "folder") => {
+    setIsOpen(true);
+    setActiveActionsId(null);
+    setShowAddItem(type);
+  };
+
+  const hideAddItemBox = () => {
+    setShowAddItem(null);
+  };
 
   return (
     <Box>
@@ -88,11 +105,13 @@ const FilesListItem = ({
           {getIcon() ? <ParentBoxMainIcon src={getIcon() || ""} /> : null}
           <ParentBoxMainTitle>{info.title}</ParentBoxMainTitle>
         </ParentBoxMain>
-        {info.id === activeActionsId && info.parentId !== null ? (
+        {info.id === activeActionsId ? (
           <Actions
             hideActionsHandler={hideActionsHandler}
             type={info.type}
             deleteFunction={deleteFunction}
+            addItemHandler={addItemHandler}
+            parentId={info.parentId}
           />
         ) : null}
       </ParentBox>
@@ -106,6 +125,7 @@ const FilesListItem = ({
             deleteHandler={deleteHandler}
           />
         ))}
+        {showAddItem ? <AddItem hideAddItemBox={hideAddItemBox} /> : null}
       </ChildsBox>
     </Box>
   );

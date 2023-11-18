@@ -5,17 +5,35 @@ type Props = {
   hideActionsHandler: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   type: "file" | "folder";
   deleteFunction: () => void;
+  addItemHandler: (type: "file" | "folder") => void;
+  parentId: number | null;
 };
 
-const Actions = ({ hideActionsHandler, type, deleteFunction }: Props) => {
+const Actions = ({
+  hideActionsHandler,
+  type,
+  deleteFunction,
+  addItemHandler,
+  parentId,
+}: Props) => {
   return (
     <Box>
       <BackSurface onClick={(e) => hideActionsHandler(e)} />
-      {type === "folder" ? <BoxItem src="/icons/add-file.png" /> : null}
       {type === "folder" ? (
-        <BoxItem src="/icons/folder-new-filled.svg" />
+        <BoxItem
+          src="/icons/add-file.png"
+          onClick={() => addItemHandler("file")}
+        />
       ) : null}
-      <BoxItem src="/icons/delete.svg" onClick={deleteFunction} />
+      {type === "folder" ? (
+        <BoxItem
+          src="/icons/folder-new-filled.svg"
+          onClick={() => addItemHandler("folder")}
+        />
+      ) : null}
+      {parentId ? (
+        <BoxItem src="/icons/delete.svg" onClick={deleteFunction} />
+      ) : null}
     </Box>
   );
 };
