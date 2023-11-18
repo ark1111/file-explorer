@@ -36,8 +36,9 @@ export const ParentBoxMain = styled.div`
   padding: 10px;
   column-gap: 10px;
   border-radius: 10px;
-  border: 1px solid #111;
+  border: 1px solid #11111130;
   cursor: pointer;
+  box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
 `;
 
 export const ParentBoxMainIcon = styled.img`
