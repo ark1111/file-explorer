@@ -66,6 +66,12 @@ const FilesExplorer = (props: Props) => {
     setData(newList);
   };
 
+  const submitAddItem=(item:DataItemType)=>{
+    let newList = [...data];
+    newList.push(item);
+    setData(newList);
+  }
+
   return (
     <Box>
       {formatedData ? (
@@ -74,6 +80,7 @@ const FilesExplorer = (props: Props) => {
           activeActionsId={activeActionsId}
           setActiveActionsId={setActiveActionsId}
           deleteHandler={deleteHandler}
+          submitAddItem={submitAddItem}
         />
       ) : null}
     </Box>
