@@ -15,7 +15,6 @@ export const ParentBox = styled.div`
 export const ParentBoxArrowBox = styled.div<{ $isOpen: boolean }>`
   width: 20px;
   height: 20px;
-  /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   justify-content: center;

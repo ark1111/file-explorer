@@ -8,7 +8,6 @@ type Props = {};
 
 const FilesExplorer = (props: Props) => {
   const [data, setData] = useState<DataItemType[]>(sampleData);
-  console.log(data);
 
   const [formatedData, setFormatedData] =
     useState<FormatedDataChildItemType | null>();

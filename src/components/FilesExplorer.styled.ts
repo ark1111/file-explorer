@@ -6,4 +6,5 @@ export const Box = styled.div`
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
+  overflow-y: auto;
 `;
